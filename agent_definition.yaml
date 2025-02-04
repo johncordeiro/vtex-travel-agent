@@ -1,0 +1,32 @@
+agents:
+  utility_agent:
+    name: "Utility Agent"
+    description: "This agent provides utility functions like getting addresses from CEP and weather information for cities"
+    instructions:
+      - "This agent provides utility functions like getting addresses from CEP and weather information for cities"
+      - "For weather requests, inform the user if the requested date is beyond the 7-day forecast limit"
+    guardrails:
+      - "If you don't know the answer, don't lie. Tell the user you don't know."
+    skills:
+      - get_address:
+          name: "Get Address"
+          source:
+            path: "skills/get_address"
+            entrypoint: "get_address.lambda_handler"
+          description: "Get address from user based on their CEP"
+          parameters:
+            - cep:
+                description: "CEP provided by the user that's the Brazilian zip code. It should be formatted as 57038640, use can inform with dash symbol but you should remove it. Even if you have the CEP, always confirm before executing the skill."
+                type: "string"
+                required: true
+      - get_weather:
+          name: "Get Weather"
+          source:
+            path: "skills/get_weather"
+            entrypoint: "get_weather.lambda_handler"
+          description: "Get weather forecast for a specific city"
+          parameters:
+            - city:
+                description: "Name of the city to get weather information"
+                type: "string"
+                required: true

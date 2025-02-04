@@ -1,0 +1,19 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Resource fork files
+._*
+
+# Icon files
+Icon?actua
+
+# macOS folder attributes
+.Spotlight-V100
+.Trashes
+
+
+__pycache__/
+skills/*/*/
+*.zip
