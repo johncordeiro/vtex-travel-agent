@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Optional, Dict, Any
 from amadeus import Client, ResponseError
+import json
 
 def get_value(event, key):
     """Get parameter value from event parameters."""
@@ -104,7 +105,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             
             response_body = {
                 'TEXT': {
-                    'body': formatted_offers
+                    'body': json.dumps(formatted_offers)
                 }
             }
 
@@ -116,12 +117,15 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 }
             }
 
-            return {
+            response = {
                 'messageVersion': '1.0',
                 'response': function_response,
                 'sessionAttributes': event.get('sessionAttributes'),
                 'promptSessionAttributes': event.get('promptSessionAttributes')
             }
+
+            print(f"Lambda response: {response}")
+            return response
             
         except ResponseError as error:
             return {

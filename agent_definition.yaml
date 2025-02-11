@@ -77,12 +77,11 @@ agents:
             - return_date:
                 description: "Return date in YYYY-MM-DD format for round trips"
                 type: "string"
-                required: false
+                required: true
             - adults:
                 description: "Number of adult passengers"
-                type: "integer"
-                required: true
-                default: 1
+                type: "string"
+                required: false
       - search_hotels:
           name: "Search Hotels"
           source:
@@ -104,11 +103,9 @@ agents:
                 required: true
             - adults:
                 description: "Number of adult guests"
-                type: "integer"
+                type: "string"
                 required: true
-                default: 1
             - radius:
                 description: "Search radius in KM from city center"
-                type: "integer"
+                type: "string"
                 required: false
-                default: 5

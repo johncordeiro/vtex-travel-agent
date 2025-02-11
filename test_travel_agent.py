@@ -57,10 +57,10 @@ def test_flight_search():
         {
             'title': "Round-trip Flight Search (GRU <-> CDG)",
             'params': {
-                'origin': 'GRU',
-                'destination': 'CDG',
-                'departure_date': tomorrow,
-                'return_date': next_week,
+                'origin': 'MCZ',
+                'destination': 'JFK',
+                'departure_date': "2025-03-18",
+                'return_date': "2025-03-25",
                 'adults': '2'
             }
         }
@@ -131,11 +131,11 @@ def main():
     except Exception as e:
         print(f"Error in flight search: {str(e)}")
     
-    # print("\nTesting Hotel Search...")
-    # try:
-    #     test_hotel_search()
-    # except Exception as e:
-    #     print(f"Error in hotel search: {str(e)}")
+    print("\nTesting Hotel Search...")
+    try:
+        test_hotel_search()
+    except Exception as e:
+        print(f"Error in hotel search: {str(e)}")
     
     print("\nTests completed!")
 

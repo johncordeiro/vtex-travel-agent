@@ -1,4 +1,4 @@
-import os
+import json
 from datetime import datetime
 from typing import Dict, Any
 from amadeus import Client, ResponseError
@@ -174,7 +174,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             
             response_body = {
                 'TEXT': {
-                    'body': formatted_offers
+                    'body': json.dumps(formatted_offers)
                 }
             }
 
