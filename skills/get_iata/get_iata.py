@@ -1,4 +1,5 @@
 import os
+import json
 from typing import Dict, Any
 from amadeus import Client, ResponseError
 
@@ -24,9 +25,10 @@ def search_city(city_name: str) -> Dict[str, Any]:
     try:
         amadeus = init_amadeus()
         response = amadeus.reference_data.locations.cities.get(
-            keyword=city_name,
-            max=5  # Limit to top 5 matches
+            keyword=city_name
         )
+
+        print(f"Response Data: {response.data}")
         
         if not response.data:
             return {
@@ -39,15 +41,7 @@ def search_city(city_name: str) -> Dict[str, Any]:
         for city in response.data:
             cities.append({
                 'name': city.get('name', ''),
-                'iata_code': city.get('iataCode', ''),
-                'state': city.get('address', {}).get('stateCode', ''),
-                'country': city.get('address', {}).get('countryName', ''),
-                'country_code': city.get('address', {}).get('countryCode', ''),
-                'timezone': city.get('timeZoneOffset', ''),
-                'location': {
-                    'latitude': city.get('geoCode', {}).get('latitude'),
-                    'longitude': city.get('geoCode', {}).get('longitude')
-                }
+                'iata_code': city.get('iataCode', '')
             })
         
         return {
@@ -93,7 +87,7 @@ def lambda_handler(event: Dict[str, Any], context: Any = None) -> Dict[str, Any]
         
         response_body = {
             'TEXT': {
-                'body': result['cities']
+                'body': json.dumps(result.get('cities'))
             }
         }
 
