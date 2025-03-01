@@ -1,13 +1,16 @@
 import requests
-import json
-from typing import Dict, Any
-import json
+from weni import Skill
+from weni.context import Context
+from weni.responses import TextResponse
 
-def get_value(event, key):
-    for param in event.get('parameters', []):
-        if param.get('name') == key:
-            return param.get('value')
-    return None
+class WeatherSkill(Skill):
+    
+    def execute(self, context: Context) -> TextResponse:
+        city = context.parameters.get("city")
+        weather_data = get_temperature_at_datetime(city)
+        formatted_data = format_temperature_data(weather_data)
+        
+        return TextResponse(data=formatted_data)
 
 def get_city_coordinates(city_name):
     """Get the latitude and longitude coordinates for a given city name."""
@@ -71,41 +74,3 @@ def format_temperature_data(weather_data):
         },
         'forecast': formatted_data
     }
-
-def lambda_handler(event: Dict[str, Any], context: Any = None) -> Dict[str, Any]:
-    """
-    AWS Lambda handler function for the weather skill.
-    """
-    actionGroup = event.get('actionGroup')
-    function = event.get('function')
-
-    city = get_value(event, "city")
-    weather_data = get_temperature_at_datetime(city)
-    formatted_data = format_temperature_data(weather_data)
-    temperature_str = json.dumps(formatted_data)
-
-    response_body = {
-        'TEXT': {
-            'body': temperature_str
-        }
-    }
-
-    function_response = {
-        'actionGroup': actionGroup,
-        'function': function,
-        'functionResponse': {
-            'responseBody': response_body
-        }
-    }
-
-    session_attributes = event.get('sessionAttributes')
-    prompt_session_attributes = event.get('promptSessionAttributes')
-
-    action_response = {
-        'messageVersion': '1.0',
-        'response': function_response,
-        'sessionAttributes': session_attributes,
-        'promptSessionAttributes': prompt_session_attributes
-    }
-
-    return action_response
