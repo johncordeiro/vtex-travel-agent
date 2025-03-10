@@ -1,0 +1,16 @@
+tests:
+  test_1:
+    parameters:
+      origin: "MCZ"
+      destination: "GRU"
+      departure_date: "2026-07-01"
+      return_date: "2026-07-05"
+      adults: 1
+      document: "35195681953"
+  test_2:
+    parameters:
+      origin: "MCZ"
+      destination: "JFK"
+      departure_date: "2026-03-18"
+      return_date: "2026-03-25"
+      adults: 2

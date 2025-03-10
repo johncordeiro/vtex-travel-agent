@@ -30,70 +30,77 @@ agents:
                 description: "Name of the city to get weather information"
                 type: "string"
                 required: true
-  # travel_agent:
-  #   name: "Travel Agent"
-  #   description: "This agent helps users plan their travels by searching for flights and hotels"
-  #   instructions:
-  #     - "Help users find flights between origin and destination cities"
-  #     - "Search for available hotels at the destination"
-  #     - "Always confirm travel dates and cities before searching"
-  #     - "Provide clear and organized information about flight options and hotel availability"
-  #   guardrails:
-  #     - "Verify that travel dates are in the future"
-  #     - "Ensure city codes are valid IATA codes for flights"
-  #     - "If you don't know something, be honest and inform the user"
-  #   skills:
-  #     - search_flights:
-  #         name: "Search Flights"
-  #         source:
-  #           path: "skills/search_flights"
-  #           entrypoint: "search_flights.lambda_handler"
-  #         description: "Search for available flights between origin and destination"
-  #         parameters:
-  #           - origin:
-  #               description: "IATA code of the origin city/airport"
-  #               type: "string"
-  #               required: true
-  #           - destination:
-  #               description: "IATA code of the destination city/airport"
-  #               type: "string"
-  #               required: true
-  #           - departure_date:
-  #               description: "Departure date in YYYY-MM-DD format"
-  #               type: "string"
-  #               required: true
-  #           - return_date:
-  #               description: "Return date in YYYY-MM-DD format for round trips"
-  #               type: "string"
-  #               required: true
-  #           - adults:
-  #               description: "Number of adult passengers"
-  #               type: "string"
-  #               required: false
-  #     - search_hotels:
-  #         name: "Search Hotels"
-  #         source:
-  #           path: "skills/search_hotels"
-  #           entrypoint: "search_hotels.lambda_handler"
-  #         description: "Search for available hotels at the destination"
-  #         parameters:
-  #           - city_code:
-  #               description: "IATA code of the city to search hotels"
-  #               type: "string"
-  #               required: true
-  #           - check_in:
-  #               description: "Check-in date in YYYY-MM-DD format"
-  #               type: "string"
-  #               required: true
-  #           - check_out:
-  #               description: "Check-out date in YYYY-MM-DD format"
-  #               type: "string"
-  #               required: true
-  #           - adults:
-  #               description: "Number of adult guests"
-  #               type: "string"
-  #               required: true
-  #           - radius:
-  #               description: "Search radius in KM from city center"
-  #               type: "string"
-  #               required: false
+  travel_agent:
+    name: "Travel Agent"
+    description: "This agent helps users plan their travels by searching for flights and hotels"
+    instructions:
+      - "Help users find flights between origin and destination cities"
+      - "Search for available hotels at the destination"
+      - "Always confirm travel dates and cities before searching"
+      - "Provide clear and organized information about flight options and hotel availability"
+    guardrails:
+      - "Verify that travel dates are in the future"
+      - "Ensure city codes are valid IATA codes for flights"
+      - "If you don't know something, be honest and inform the user"
+    credentials:
+      - CLIENT_ID:
+          - label: "Amadeus Client ID"
+      - CLIENT_SECRET:
+          - label: "Amadeus Client Secret"
+    skills:
+      - search_flights:
+          name: "Search Flights"
+          source:
+            path: "skills/search_flights"
+            entrypoint: "search_flights.SearchFlightsSkill"
+            path_test: "tests.yaml"
+          description: "Search for available flights between origin and destination"
+          parameters:
+            - origin:
+                description: "IATA code of the origin city/airport"
+                type: "string"
+                required: true
+            - destination:
+                description: "IATA code of the destination city/airport"
+                type: "string"
+                required: true
+            - departure_date:
+                description: "Departure date in YYYY-MM-DD format"
+                type: "string"
+                required: true
+            - return_date:
+                description: "Return date in YYYY-MM-DD format for round trips"
+                type: "string"
+                required: true
+            - adults:
+                description: "Number of adult passengers"
+                type: "string"
+                required: false
+      - search_hotels:
+          name: "Search Hotels"
+          source:
+            path: "skills/search_hotels"
+            entrypoint: "search_hotels.SearchHotelsSkill"
+            path_test: "tests.yaml"
+          description: "Search for available hotels at the destination"
+          parameters:
+            - city_code:
+                description: "IATA code of the airport to search hotels"
+                type: "string"
+                required: true
+            - check_in:
+                description: "Check-in date in YYYY-MM-DD format"
+                type: "string"
+                required: true
+            - check_out:
+                description: "Check-out date in YYYY-MM-DD format"
+                type: "string"
+                required: true
+            - adults:
+                description: "Number of adult guests"
+                type: "string"
+                required: true
+            - radius:
+                description: "Search radius in KM from city center"
+                type: "string"
+                required: false

@@ -1,0 +1,28 @@
+tests:
+  test_1:
+    parameters:
+      city_code: "GRU"
+      check_in: "2025-07-01"
+      check_out: "2025-07-05"
+      adults: 1
+  test_2:
+    parameters:
+      city_code: "PAR"
+      check_in: "2025-07-01"
+      check_out: "2025-07-05"
+      adults: 2
+      radius: 5
+  test_3:
+    parameters:
+      city_code: "JFK"
+      check_in: "2025-07-01"
+      check_out: "2025-07-05"
+      adults: 1
+      radius: 10
+  test_4:
+    parameters:
+      city_code: "LON"
+      check_in: "2025-07-01"
+      check_out: "2025-07-05"
+      adults: 2
+      radius: 3
