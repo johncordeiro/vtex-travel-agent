@@ -15,7 +15,7 @@ Icon?actua
 
 
 __pycache__/
-skills/*/*/
+tools/*/*/
 *.zip
 
 .env

@@ -2,11 +2,11 @@ from datetime import datetime
 from typing import Optional, Dict, Any
 from amadeus import Client, ResponseError
 import json
-from weni import Skill
+from weni import Tool
 from weni.context import Context
 from weni.responses import TextResponse
 
-class SearchFlightsSkill(Skill):
+class SearchFlightsTool(Tool):
     
     def execute(self, context: Context) -> TextResponse:
         try:
@@ -16,6 +16,8 @@ class SearchFlightsSkill(Skill):
             departure_date = context.parameters.get('departure_date')
             return_date = context.parameters.get('return_date')
             adults = int(context.parameters.get('adults') or 1)
+
+            print(f"Parameters: {origin}, {destination}, {departure_date}, {return_date}, {adults}")
             
             if not all([origin, destination, departure_date]):
                 missing = []

@@ -1,9 +1,9 @@
 import requests
-from weni import Skill
+from weni import Tool
 from weni.context import Context
 from weni.responses import TextResponse
 
-class WeatherSkill(Skill):
+class WeatherTool(Tool):
     
     def execute(self, context: Context) -> TextResponse:
         city = context.parameters.get("city")

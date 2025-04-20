@@ -2,11 +2,11 @@ import json
 from datetime import datetime
 from typing import Dict, Any
 from amadeus import Client, ResponseError
-from weni import Skill
+from weni import Tool
 from weni.context import Context
 from weni.responses import TextResponse
 
-class SearchHotelsSkill(Skill):
+class SearchHotelsTool(Tool):
     
     def execute(self, context: Context) -> TextResponse:
         try:

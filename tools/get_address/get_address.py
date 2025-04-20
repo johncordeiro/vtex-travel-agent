@@ -1,9 +1,9 @@
 import requests
-from weni import Skill
+from weni import Tool
 from weni.context import Context
 from weni.responses import TextResponse
 
-class AddressSkill(Skill):
+class AddressTool(Tool):
 
     def execute(self, context: Context) -> TextResponse:
         cep = context.parameters.get("cep")
